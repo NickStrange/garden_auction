@@ -10,9 +10,9 @@ from src.title import set_title
 
 def front_page(item: AuctionItem):
     width, height = A4
-    heightlist = [0.15*height, #title
-                  0.2*height,  #description
-                  0.62 * height, #table
+    heightlist = [0.1*height, #title
+                  0.3*height,  #description
+                  0.57*height, #table
                   0.03 *height
                   ]
 
@@ -25,12 +25,12 @@ def front_page(item: AuctionItem):
        rowHeights=heightlist)
 
     mainTable.setStyle([
-     #   ('GRID', (0, 0), (-1, -1), 1, 'red'),
+    #    ('GRID', (0, 0), (-1, -1), 1, 'red'),
         ('LEFTPADDING', (0, 0), (0, -1), 0),
     #flowers
         ('BOTTOMPADDING', (0, 0), (0, 0), 15),
     #description
-        ('BOTTOMPADDING', (0, 1), (0, 1), 35),
+        ('BOTTOMPADDING', (0, 1), (0, 1), 10),
     #Table
         ('ALIGN', (0, 2), (0, 2), 'CENTRE'),
         ('VALIGN', (0, 2), (0, 2), 'MIDDLE'),
@@ -50,7 +50,7 @@ def back_page(item: AuctionItem):
     ], colWidths=width,
        rowHeights=heightlist)
     backTable.setStyle([
-        ('GRID', (0, 0), (-1, -1), 1, 'red'),
+    #    ('GRID', (0, 0), (-1, -1), 1, 'red'),
         ('LEFTPADDING', (0, 0), (0, -1), 0),
    #     ('BOTTOMPADDING', (0, 0), (-1, -1), 15),
 
@@ -65,12 +65,12 @@ def back_page(item: AuctionItem):
 pdf = canvas.Canvas("../data/auction.pdf", pagesize=A4)
 pdf.setTitle("Palms Hotel")
 item = AuctionItem(item_no=45,
-                   description='this is a description',
-                   value=100,
-                   minimum_bid=10, #50%
+                   description='Lovely sculpture to enhance the beauty of your garden',
+                   value=80,
+                   minimum_bid=40, #50%
                    increment=5,
-                   donor="Wendy Payne",
-                   title="A nice box")
+                   donor="B J Huggins",
+                   title="Garden Spinner")
 
 front_page(item)
 pdf.showPage()

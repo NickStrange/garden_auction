@@ -21,7 +21,7 @@ def set_table(width:int, height:int, item:AuctionItem, front=True):
         matrix+=([[i+offset,'','', '']])
     res = Table(matrix, colWidths=widthList, rowHeights=height/linecount)
     res.setStyle([
-     #   ('GRID', (0, 0), (-1, -1), 1, 'red'),
+       # ('GRID', (0, 0), (-1, -1), 1, 'red'),
         ('INNERGRID', (0, 0), (-1, -1), 0.5, 'grey'),
         ('BACKGROUND', (0, 0), (-1, 0), color),
         ('TEXTCOLOR', (0, 0), (-1, 0),'white'),

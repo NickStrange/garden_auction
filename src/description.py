@@ -13,7 +13,7 @@ def setdesc(width, height, item:AuctionItem):
     para1Style.textColor = colors.HexColor('#003363')
     para1 = Paragraph(item.description, para1Style)
     para2Style = ParagraphStyle('para2d')
-    para2Style.fontSize = 10
+    para2Style.fontSize = 15
     para2Style.spaceAfter = 0
     para2Style.textColor = colors.HexColor('#003363')
     para2 = Paragraph(f' Donated by: {item.donor}', para2Style)
@@ -21,11 +21,13 @@ def setdesc(width, height, item:AuctionItem):
         ['', para1, ''],
         ['', para2, '']
     ], colWidths=colwidth,
-       rowHeights=[height*2/3, height*1/3])
+       rowHeights=[height*14/16, height*2/16])
     # description section
     descTable.setStyle([
 #    ('GRID', (0, 0), (-1, -1), 1, 'blue'),
-    ('GRID', (1, 0), (1, 0), 2, 'black'),
+    ('GRID', (1, 0), (1, 1), 1, 'black'),
+    ('BOTTOMPADDING', (0, 0), (0, 0), 0),
+    ('BOTTOMPADDING', (1, 0), (1, 0), 0),
     ('ALIGN', (0, 0), (-1, -1), 'CENTRE'),
     ('VALIGN', (0, 0), (-1,-1), 'MIDDLE'),
     ('LEFTPADDING', (0, 0), (-1,-1), 5),
@@ -34,7 +36,7 @@ def setdesc(width, height, item:AuctionItem):
     return descTable
 
 def set_description(width:int, height:int,item: AuctionItem):
-    heightList = [0.2*height, 0.40*height, 0.20*height, 0.20*height]
+    heightList = [40, 200, 20, 20]
 
     descriptionTable = Table([
         [f'ITEM #{item.item_no} {item.title}'],
@@ -47,7 +49,7 @@ def set_description(width:int, height:int,item: AuctionItem):
     descriptionTable.setStyle([
      #   ('GRID', (0, 0), (-1, -1), 1, 'green'),
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
         # # top section
         ('ALIGN', (0,0), (0,0), 'CENTRE'),
         ('VALIGN', (0,0), (0,0), 'MIDDLE'),
