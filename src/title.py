@@ -4,9 +4,9 @@ from reportlab.platypus import Table, Image
 
 def set_title(width:int, height:int):
     widthList = [0.17*width, 0.66*width, 0.17*width]
-    image_pathl = '../data/rosel.jpg'
+    image_pathl = '../data/garden_club_logo.jpeg'
     imgl = Image(image_pathl, 0.9*widthList[0], height=0.75*height, kind='proportional')
-    image_pathr = '../data/roser.jpg'
+    image_pathr = '../data/garden_club_logo.jpeg'
     imgr = Image(image_pathr, 0.9*widthList[2], height=0.75*height, kind='proportional')
 
     titleTable = Table([
