@@ -80,16 +80,14 @@ def read_file(file:str):
 
 
 if __name__ == '__main__':
-    items = read_file('../data/IG_1-3.xlsx')
+    items = read_file('../data/IG_1-6.xlsx')
     for index, item_row in items.iterrows():
-        if index>34:
-            print('++++++++++\n',index, item_row['Item Description Size'])
         item = AuctionItem(item_no=index+1,
                    description=item_row['Item Description Size'],
                    value=item_row['Retail Value'],
                    minimum_bid=item_row['Opening Bid'], #50%
                    increment=5,
                    donor=item_row['Donor'],
-                   title="Garden Spinner")
+                   title=item_row['Title'])
         if item.is_valid():
             produce_item_page(item)

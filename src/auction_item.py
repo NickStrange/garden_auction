@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 import pandas as pd
 
@@ -19,6 +20,9 @@ class AuctionItem:
             self.value=int(self.value)
         if str(self.minimum_bid) =='nan':
             self.minimum_bid = int(self.value*0.5)
+        if str(self.title) =='nan':
+            self.title=''
+
 
     def is_valid(self):
         return str(self.description) != 'nan'
