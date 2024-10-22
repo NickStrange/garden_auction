@@ -12,6 +12,10 @@ class AuctionItem:
     donor: str
     increment: float
     title: str
+    live_auction: str
+    buy_now :str
+    split_bid :str
+    section :str
 
     def __post_init__(self):
         if str(self.value) == 'nan':
@@ -22,6 +26,8 @@ class AuctionItem:
             self.minimum_bid = int(self.value*0.5)
         if str(self.title) =='nan':
             self.title=''
+        if str(self.section) == 'nan':
+            self.section = ''
 
 
     def is_valid(self):

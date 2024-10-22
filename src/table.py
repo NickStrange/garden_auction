@@ -29,7 +29,7 @@ def set_table(width:int, height:int, item:AuctionItem, front=True):
         ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
         ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (1, 0), (-1, -1), 'MIDDLE'),
-        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.antiquewhite, colors.beige]),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1),  [colors.white, colors.lightgrey]),
     ])
 
     return res

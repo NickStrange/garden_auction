@@ -9,6 +9,23 @@ from src.table import set_table
 from src.title import set_title
 import pandas as pd
 
+def footer(item: AuctionItem) -> str:
+    def decode(label: str, value:str) -> str:
+        if value == 'Y':
+            return f'{label}'
+        return ''
+    items=[]
+    if item.section:
+        items.append(item.section)
+    if item.live_auction == 'Y':
+        items.append(decode("live auction", item.live_auction))
+    if item.buy_now == 'Y':
+        items.append(decode("buy now", item.buy_now))
+    if item.split_bid == 'Y':
+        items.append(decode("split bid", item.split_bid))
+    return ": ".join(items)
+
+
 def front_page(item: AuctionItem, pdf):
     width, height = A4
     heightlist = [0.1*height, #title
@@ -21,7 +38,7 @@ def front_page(item: AuctionItem, pdf):
         [set_title(width, heightlist[0])],
         [set_description(width, heightlist[1], item)],
         [set_table(width, heightlist[2], item)],
-        ''
+        [footer(item)],
     ], colWidths=width,
        rowHeights=heightlist)
 
@@ -80,7 +97,7 @@ def read_file(file:str):
 
 
 if __name__ == '__main__':
-    items = read_file('../data/IG_1-6.xlsx')
+    items = read_file('../data/IG_8.xlsx')
     for index, item_row in items.iterrows():
         item = AuctionItem(item_no=index+1,
                    description=item_row['Item Description Size'],
@@ -88,6 +105,11 @@ if __name__ == '__main__':
                    minimum_bid=item_row['Opening Bid'], #50%
                    increment=5,
                    donor=item_row['Donor'],
-                   title=item_row['Title'])
+                   title=item_row['Title'],
+                   live_auction=item_row['Live Auction'],
+                   split_bid=item_row['Split Bid'],
+                   buy_now=item_row['Buy Now'],
+                   section=item_row['Section'],
+        )
         if item.is_valid():
             produce_item_page(item)
