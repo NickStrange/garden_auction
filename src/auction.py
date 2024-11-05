@@ -14,6 +14,8 @@ def footer(item: AuctionItem) -> str:
         if value == 'Y':
             return f'{label}'
         return ''
+
+    buy_now = '' if not item.buy_now else f' BUY NOW FOR ${item.buy_now}'
     items=[]
     if item.section:
         items.append(item.section)
@@ -23,21 +25,27 @@ def footer(item: AuctionItem) -> str:
         items.append(decode("buy now", item.buy_now))
     if item.split_bid == 'Y':
         items.append(decode("split bid", item.split_bid))
-    return ": ".join(items)
+    return "\n     "+": ".join(items)
 
 
 def front_page(item: AuctionItem, pdf):
     width, height = A4
-    heightlist = [0.1*height, #title
-                  0.3*height,  #description
-                  0.57*height, #table
-                  0.03 *height
+    heightlist = [
+                  0.05 *height,
+                  0.1*height, #title
+                  0.25*height,  #description
+                  0.50*height, #table
+                  0.025 * height,  # buy now
+                  0.075 *height, #footer
+              #    0.05*height  #padding
                   ]
-
+    buy_now = '' if not item.buy_now else f'Bidder # ____ Bidder_name __________Buy now for ${item.buy_now}'
     mainTable = Table([
-        [set_title(width, heightlist[0])],
-        [set_description(width, heightlist[1], item)],
-        [set_table(width, heightlist[2], item)],
+        [''],
+        [set_title(width, heightlist[1])],
+        [set_description(width, heightlist[2], item)],
+        [set_table(width, heightlist[3], item)],
+        [buy_now],
         [footer(item)],
     ], colWidths=width,
        rowHeights=heightlist)
@@ -50,9 +58,14 @@ def front_page(item: AuctionItem, pdf):
     #description
         ('BOTTOMPADDING', (0, 1), (0, 1), 10),
     #Table
-        ('ALIGN', (0, 2), (0, 2), 'CENTRE'),
-        ('VALIGN', (0, 2), (0, 2), 'MIDDLE'),
-        ('BOTTOMPADDING', (0, 2), (-1, -1), 0),
+        ('ALIGN', (0, 3), (0, 3), 'CENTRE'),
+        ('VALIGN', (0, 3), (0, 3), 'MIDDLE'),
+        ('BOTTOMPADDING', (0, 4), (-1, -1), 0),
+    #buy_now
+        ('ALIGN', (0, 4), (0, 4), 'CENTRE'),
+        ('FONTSIZE', (0, 4), (0, 4), 20),
+    #footer
+        ('VALIGN', (0, 5), (0, 5), 'TOP'),
     ])
 
     mainTable.wrapOn(pdf,0,0)
@@ -97,7 +110,7 @@ def read_file(file:str):
 
 
 if __name__ == '__main__':
-    items = read_file('../data/IG_8.xlsx')
+    items = read_file('../data/IG_nov_3.2.xlsx')
     for index, item_row in items.iterrows():
         item = AuctionItem(item_no=index+1,
                    description=item_row['Item Description Size'],
