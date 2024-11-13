@@ -6,8 +6,8 @@ def set_title(width:int, height:int):
     widthList = [0.17*width, 0.66*width, 0.17*width]
     image_pathl = '../data/garden_club_logo.jpeg'
     imgl = Image(image_pathl, 0.9*widthList[0], height=height, kind='proportional')
-    image_pathr = '../data/garden_club_logo.jpeg'
-    imgr = Image(image_pathr, 0.9*widthList[2], height=height, kind='proportional')
+   # image_pathr = '../data/garden_club_logo.jpeg'
+   # imgr = Image(image_pathr, 0.9*widthList[2], height=height, kind='proportional')
 
     titleTable = Table([
         [imgl, '2024 Cary Garden Club Auction','']
@@ -15,7 +15,7 @@ def set_title(width:int, height:int):
        rowHeights=height)
 
     titleTable.setStyle([
-  #      ('GRID', (0, 0), (-1, -1), 1, 'red'),
+      #  ('GRID', (0, 0), (-1, -1), 1, 'red'),
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
         # Left flower

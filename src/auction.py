@@ -21,8 +21,6 @@ def footer(item: AuctionItem) -> str:
         items.append(item.section)
     if item.live_auction == 'Y':
         items.append(decode("live auction", item.live_auction))
-    if item.buy_now == 'Y':
-        items.append(decode("buy now", item.buy_now))
     if item.split_bid == 'Y':
         items.append(decode("split bid", item.split_bid))
     return "\n     "+": ".join(items)
@@ -37,7 +35,6 @@ def front_page(item: AuctionItem, pdf):
                   0.50*height, #table
                   0.025 * height,  # buy now
                   0.075 *height, #footer
-              #    0.05*height  #padding
                   ]
     buy_now = '' if not item.buy_now else f'Bidder # ____ Bidder_name __________Buy now for ${item.buy_now}'
     mainTable = Table([
@@ -68,30 +65,8 @@ def front_page(item: AuctionItem, pdf):
         ('VALIGN', (0, 5), (0, 5), 'TOP'),
     ])
 
-    mainTable.wrapOn(pdf,0,0)
+    mainTable.wrapOn(pdf, 0, 0)
     mainTable.drawOn(pdf, 0, 0)
-
-def back_page(item: AuctionItem, pdf):
-    width, height = A4
-    heightlist =[height*0.025, height*0.95, height*0.025]
-    backTable = Table([
-        'fff',
-        [set_table(width, heightlist[1], item, front=False)],
-        'ggg'
-    ], colWidths=width,
-       rowHeights=heightlist)
-    backTable.setStyle([
-    #    ('GRID', (0, 0), (-1, -1), 1, 'red'),
-        ('LEFTPADDING', (0, 0), (0, -1), 0),
-   #     ('BOTTOMPADDING', (0, 0), (-1, -1), 15),
-
-        ('ALIGN', (0, 1), (0, 1), 'CENTRE'),
-        ('VALIGN', (0, 1), (0, 1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
-    ])
-    backTable.wrapOn(pdf,0,0)
-    backTable.drawOn(pdf, 0, 0)
-    return backTable
 
 def produce_item_page(item:AuctionItem):
     pdf = canvas.Canvas(f"../data/items/auction{item.item_no:03d}.pdf", pagesize=A4)
@@ -110,7 +85,7 @@ def read_file(file:str):
 
 
 if __name__ == '__main__':
-    items = read_file('../data/IG_nov_3.2.xlsx')
+    items = read_file('../data/IG_1-1.xlsx')
     for index, item_row in items.iterrows():
         item = AuctionItem(item_no=index+1,
                    description=item_row['Item Description Size'],

@@ -40,7 +40,7 @@ def set_description(width:int, height:int,item: AuctionItem):
     heightList = [height*0.1, height*0.6, height*0.1, height*0.2]
     buy_now = '** THIS IS A BUY NOW ITEM **' if item.buy_now else ''
     descriptionTable = Table([
-        [f'ITEM #{item.item_no} {item.title}'],
+        [f'(Category, {item.section}) ITEM #{item.item_no} {item.title}'],
         [setdesc(width, heightList[1]-5, item)],
         [f'RETAIL VALUE: ${item.value} {buy_now}'],
         [f'MINIMUM BID ${item.minimum_bid}. MINIMUM BID INCREMENT: ${item.increment}'],
