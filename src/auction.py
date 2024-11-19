@@ -70,12 +70,12 @@ def front_page(item: AuctionItem, pdf):
 
 def produce_item_page(item:AuctionItem):
     item_no = f'{item.item_no:03d}' if item.item_no !='' else 999
-    pdf = canvas.Canvas(f"../data/items/auction{item_no}.pdf", pagesize=A4)
+ #   pdf = canvas.Canvas(f"../data/items/auction{item_no}.pdf", pagesize=A4)
     front_page(item, pdf)
-    pdf.showPage()
+ #   pdf.showPage()
 # back_page(item, pdf)
 # pdf.showPage()
-    pdf.save()
+ #   pdf.save()
 
 def read_file(file:str):
     items_df = (pd.read_excel(file)
@@ -87,6 +87,8 @@ def read_file(file:str):
 
 if __name__ == '__main__':
     items = read_file('../data/IG_1-12.xlsx')
+    pdf = canvas.Canvas(f"../data/items/auction_items.pdf", pagesize=A4)
+    saved = None
     for index, item_row in items.iterrows():
         item = AuctionItem(item_no=index+1,
                    description=item_row['Item Description Size'],
@@ -101,4 +103,12 @@ if __name__ == '__main__':
                    section=item_row['Section'],
         )
        # if item.is_valid():
+        saved=item
+        front_page(item, pdf)
         produce_item_page(item)
+
+        pdf.showPage()
+    for row in range(15):
+        front_page(saved, pdf)
+        pdf.showPage()
+    pdf.save()
