@@ -5,17 +5,17 @@ import pandas as pd
 
 @dataclass
 class AuctionItem:
-    item_no: int
-    description: str
-    value: float
-    minimum_bid: float
-    donor: str
-    increment: float
-    title: str
-    live_auction: str
-    buy_now :str
-    split_bid :str
-    section :str
+    item_no: int = 0
+    description: str = None
+    value: float = float('nan')
+    minimum_bid:float = float('nan')
+    donor: str  = None
+    increment: float = float('nan')
+    title: str  = None
+    live_auction: str  = None
+    buy_now :str  = float('nan')
+    split_bid :str  = None
+    section :str = None
 
     def __post_init__(self):
         if str(self.value) == 'nan':
