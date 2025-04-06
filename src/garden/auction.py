@@ -1,14 +1,19 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import Table
-from src.garden.auction_item import AuctionItem
-from src.garden.description import set_description
-from src.garden.table import set_table
-from src.garden.title import set_title
+from src.district_level_garden.auction_item import AuctionItem
+from src.district_level_garden.description import set_description
+from src.district_level_garden.table import set_table
+from src.district_level_garden.title import set_title
 import pandas as pd
 
 
 def footer(item: AuctionItem) -> str:
+    """
+    :param item:
+    :return:
+    """
+    """ add live auctio label etc to footer"""
     def decode(label: str, value: str) -> str:
         if value == 'Y':
             return f'{label}'
